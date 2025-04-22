@@ -1,6 +1,6 @@
 {
-  "name": "your-vendor/prix-degressif",
-  "description": "Plugin WordPress modulaire",
+  "name": "cherminator38/lead-platform",
+  "description": "Plugin modulaire pour gestion dynamique des leads",
   "type": "wordpress-plugin",
   "autoload": {
     "psr-4": {
