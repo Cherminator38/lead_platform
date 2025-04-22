@@ -3,26 +3,15 @@ namespace PD\Modules;
 
 class QualityScore {
     public static function init() {
-        // Rien d'autre à initialiser pour l'instant
+        // Pas d'init requis
     }
 
-    /**
-     * Calcule le score qualité d'un lead basé sur le délai.
-     *
-     * A+ : <= seuil A+
-     * A  : entre seuil A_min et A_max
-     * B  : <= seuil B_max
-     * C  : > B_max
-     *
-     * @param int $post_id ID du post (produit)
-     * @return string Score qualité ('A+', 'A', 'B', 'C')
-     */
     public static function get_score(int $post_id): string {
         $elapsed = max(0, round((current_time('timestamp') - get_post_time('U', false, $post_id)) / 60));
         $seuil_aplus = intval(get_post_meta($post_id, '_qualite_aplus', true) ?: 5);
-        $seuil_Amin = intval(get_post_meta($post_id, '_qualite_A_min', true) ?: 1440);
-        $seuil_Amax = intval(get_post_meta($post_id, '_qualite_A_max', true) ?: 2880);
-        $seuil_Bmax = intval(get_post_meta($post_id, '_qualite_B_max', true) ?: 4320);
+        $seuil_Amin  = intval(get_post_meta($post_id, '_qualite_A_min', true) ?: 1440);
+        $seuil_Amax  = intval(get_post_meta($post_id, '_qualite_A_max', true) ?: 2880);
+        $seuil_Bmax  = intval(get_post_meta($post_id, '_qualite_B_max', true) ?: 4320);
 
         if ($elapsed <= $seuil_aplus) {
             return 'A+';

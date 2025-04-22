@@ -1,14 +1,11 @@
 <?php
 namespace PD\Modules;
 
-use WC_Product;
-
 class DynamicPricing {
     public static function init() {
-        // Hooks WooCommerce pour prix dynamiques
         add_filter('woocommerce_product_get_price', [__CLASS__, 'apply_dynamic_price'], 10, 2);
         add_filter('woocommerce_product_get_regular_price', [__CLASS__, 'apply_dynamic_price'], 10, 2);
-        add_filter('woocommerce_variation_get_price', [__CLASS__, 'apply_dynamic_price'], 10, 2);
+        add_filter('woocommerce_variantion_get_price', [__CLASS__, 'apply_dynamic_price'], 10, 2);
         add_filter('woocommerce_get_price_html', [__CLASS__, 'filter_price_html'], 10, 2);
     }
 
@@ -17,16 +14,14 @@ class DynamicPricing {
         if (! metadata_exists('post', $pid, '_lead_reference')) {
             return $price;
         }
-        // Calcul du temps écoulé en minutes
         $elapsed = max(0, round((current_time('timestamp') - get_post_time('U', false, $pid)) / 60));
-        // Chargement des paliers depuis les meta
         $tiers = [];
         foreach (get_post_meta($pid) as $key => $vals) {
             if (strpos($key, '_delai_palier_') === 0) {
                 $i = intval(str_replace('_delai_palier_', '', $key));
                 $tiers[$i] = [
                     'delai' => intval($vals[0]),
-                    'prix'  => floatval(get_post_meta($pid, '_prix_palier_' . $i, true)),
+                    'prix' => floatval(get_post_meta($pid, '_prix_palier_' . $i, true)),
                 ];
             }
         }
