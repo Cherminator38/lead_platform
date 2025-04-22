@@ -1,1 +1,3 @@
-# lead_platform
+# Prix Dégressif Plugin Scaffold
+
+Structure modulaire.

@@ -1,0 +1,10 @@
+{
+  "name": "your-vendor/prix-degressif",
+  "description": "Plugin WordPress modulaire",
+  "type": "wordpress-plugin",
+  "autoload": {
+    "psr-4": {
+      "PD\\": "src/"
+    }
+  }
+}
